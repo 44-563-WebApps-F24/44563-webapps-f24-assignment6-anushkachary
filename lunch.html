@@ -26,6 +26,20 @@
 
 <p id="result">This text will be replaced with your lunch order</p>
 
+<h3>Update Lunch Object</h3>
+<form>
+    <div>
+        <label for="propertyInput">Enter property:</label>
+        <input type="text" id="propertyInput" value="entree">
+    </div>
+    <div>
+        <label for="valueInput">Set it to:</label>
+        <input type="text" id="valueInput"> 
+    </div>
+
+    <input type="button" value="Update the lunch" onclick="updateLunch()">
+</form>
+
 <script>
     let my_lunch = {};
 
@@ -35,6 +49,15 @@
         my_lunch.drink = document.getElementById("drinkCheckbox").checked;
         my_lunch.side = document.getElementById("sideCheckbox").checked;
         my_lunch.in = document.getElementById("eatInCheckbox").checked;
+
+        document.getElementById("result").innerHTML = JSON.stringify(my_lunch);
+    }
+
+    function updateLunch() {
+        let property = document.getElementById("propertyInput").value;
+        let value = document.getElementById("valueInput").value;
+
+        my_lunch[property] = value;
 
         document.getElementById("result").innerHTML = JSON.stringify(my_lunch);
     }
