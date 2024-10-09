@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
- <title>Sum of Powers</title>
+<head>
+    <title>Sum of Powers & Calculations</title>
+</head>
 <body>
 <h1>Anushka Uppula Figures Out</h1>
 <h2>Getting input</h2>
@@ -8,26 +10,74 @@
 <form>
     <label for="firstNumber">Enter a number:</label>
     <input type="number" id="firstNumber" value="2"><br><br>
+
     <label for="secondNumber">Enter a number:</label>
     <input type="number" id="secondNumber" value="12"><br><br>
-    <input type="button" onclick="powerSum()" value="Compute">
+
+    <input type="button" onclick="powerSum()" value="Compute Sum of Powers">
 </form>
 
+<p id="powerResult">The result will be displayed here.</p>
 
-<p id="result">The result will be displayed here.</p>
+<hr>
 
-<script> 
+<h2>Radio Button Group for Calculations</h2>
 
+<form>
+    <input type="radio" id="max" name="operation" value="max" onclick="processRadio()">
+    <label for="max">Max</label><br>
+
+    <input type="radio" id="min" name="operation" value="min" onclick="processRadio()">
+    <label for="min">Min</label><br>
+
+    <input type="radio" id="avg" name="operation" value="avg" onclick="processRadio()">
+    <label for="avg">Average</label><br>
+
+    <input type="radio" id="geo" name="operation" value="geo" onclick="processRadio()">
+    <label for="geo">Geometric Mean</label><br>
+</form>
+
+<p id="calcResult">The result of the calculation will be displayed here.</p>
+
+<script>
 function powerSum() {
-            let first = parseInt(document.getElementById("firstNumber").value);
-            let second = parseInt(document.getElementById("secondNumber").value);
-            let sum = 0;
-            for (let i = 0; i < first; i++) {
-                sum += Math.pow(second, i);
-            }
-            document.getElementById("result").innerHTML = 
-                `Sum of the first ${first} powers with base ${second} is ${sum}`;
-        }
+    let first = parseInt(document.getElementById("firstNumber").value);
+    let second = parseInt(document.getElementById("secondNumber").value);
+    let sum = 0;
+
+    for (let i = 0; i < first; i++) {
+        sum += Math.pow(second, i);
+    }
+
+    document.getElementById("powerResult").innerHTML = 
+        `Sum of the first ${first} powers with base ${second} is ${sum}`;
+}
+
+function processRadio() {
+    let first = parseFloat(document.getElementById("firstNumber").value);
+    let second = parseFloat(document.getElementById("secondNumber").value);
+
+    let operation = document.querySelector('input[name="operation"]:checked').value;
+    let result = 0;
+    let operationName = '';
+
+    if (operation === 'max') {
+        result = Math.max(first, second);
+        operationName = 'Maximum';
+    } else if (operation === 'min') {
+        result = Math.min(first, second);
+        operationName = 'Minimum';
+    } else if (operation === 'avg') {
+        result = (first + second) / 2;
+        operationName = 'Average';
+    } else if (operation === 'geo') {
+        result = (first * second) ** 0.5;
+        operationName = 'Geometric Mean';
+    }
+
+    document.getElementById("calcResult").innerHTML = 
+        `Computed ${operationName} with values ${first} and ${second}, result is ${result}`;
+}
 </script>
 
 </body>
